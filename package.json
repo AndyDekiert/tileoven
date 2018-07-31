@@ -4,7 +4,7 @@
     "main": "./index.js",
     "description": "A modern map design studio.",
     "keywords": ["map", "design", "cartography"],
-    "url": "http://github.com/florianf/tileoven",
+    "url": "http://github.com/andydekiert/tileoven",
     "repository": {
         "type": "git",
         "url": "git://github.com/andydekiert/tileoven.git"
