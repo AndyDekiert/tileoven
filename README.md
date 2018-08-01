@@ -7,7 +7,7 @@ I did not find any fork of the original TileMill with fixed depencencies, hence 
 TileOven works only in server mode, no native packages are provided. Platforms other than CentOS 7.5 should theoretically work, but aren't tested.
 
 # Installation
-To build and install TileOven you will first need to build and install it's dependencies Mapnik and NodeJS. The repository [tileoven-centos-dependencies](https://github.com/andydekiert/tileoven-centos-dependencies) will provide you with the versions which I used. Just follow the instructions in the `Readme.md` of that repository before continuing here.
+To build and install TileOven you will first need to build and install it's dependencies Mapnik and NodeJS. The repository [tileoven-centos7-dependencies](https://github.com/andydekiert/tileoven-centos7-dependencies) will provide you with the versions which I used. Just follow the instructions in the `Readme.md` of that repository before continuing here.
 
 Once above dependencies are built and installed:
 1. Install further TileOven build dependencies:
