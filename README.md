@@ -1,15 +1,50 @@
 # General Info
 
-TileOven is a maintained fork of TileMill, tested on Linux with Node 0.10.25, 4.2.6, 4.5.0 and 6.9.1
-TileOven works only in server mode, no native packages are provided.
-Platforms other than Linux should theoretically work, but aren't tested.
+TileOven is a fork of TileMill, with fixed dependencies (`npm-shrinkwrap.json`) to ensure it is still buildable in the future. Also this fork is tested and build on CentOS 7.5 with NodeJS 6.9.1 and Mapnik 3.0.20.
 
-Changes from upstream are cherry-picked, last time on Apr 22, 2016.
+I did not find any fork of the original TileMill with fixed depencencies, hence these were all not buildable without some heavy tweaking (as time passed new versions of dependencies were released which did not work together anymore...). Hopefully this fork will do better over time.
 
+TileOven works only in server mode, no native packages are provided. Platforms other than CentOS 7.5 should theoretically work, but aren't tested.
 
-# Changelog since forking
+# Installation
+To build and install TileOven you will first need to build and install it's dependencies Mapnik and NodeJS. The repository [tileoven-centos7-dependencies](https://github.com/andydekiert/tileoven-centos7-dependencies) will provide you with the versions which I used. Just follow the instructions in the `Readme.md` of that repository before continuing here.
 
-## Features
+Once above dependencies are built and installed:
+1. Install further TileOven build dependencies:
+   ```bash
+   yum install protobuf-devel protobuf-compile
+   ```
+   
+2. Make sure TileOven will find Mapnik when building: Edit `/etc/ld.so.conf` and add a new line: `/usr/local/lib`. To reload the shared library paths, run as root:
+   ```bash
+   ldconfig
+   ldconfig -p
+   ```
+   Review the output and search for `libmapnik.so.3.0` which should be found in `/usr/local/lib`.
+   
+3. Clone this repository to a location of your liking, e.g. `/usr/local/src`.
+   ```bash
+   cd /usr/local/src
+   git clone https://github.com/andydekiert/tileoven
+   ```
+   
+4. Build and install TileOven - let `npm-shrinkwrap.json` do it's magic:
+   ```bash
+   cd tileoven
+   npm install --build-from-source
+   ```
+   
+5. Launch TileOven:
+   ```
+   ./index.js
+   ```
+   You can then view TileOven at http://localhost:20009 in your favorite web browser.
+   
+
+# Upstream Readme: Not maintained / Might not be fully applicable
+
+## Changelog of TileOven since forking from TileMill
+### Features
 
 - Forked millstone dependency, Node 6 now supported
 - Support for Node 4, thanks to patches and updated dependencies of @paulovieira
@@ -23,7 +58,7 @@ Changes from upstream are cherry-picked, last time on Apr 22, 2016.
 - Remember last selected folder in new layer dialog
 - Better compatibility with kosmtik, TileOven mml project files should work out of the box with kosmtik (https://github.com/kosmtik)
 
-## Bugfixes
+### Bugfixes
 
 - Removed topcube and other obsolete dependencies
 - Removed windowed mode, only server mode is supported
@@ -35,29 +70,13 @@ Changes from upstream are cherry-picked, last time on Apr 22, 2016.
 - Fixed creation of job file in export if it doesn't exist
 - Fixed multiple output of CartoCSS errors to update to latest version
 
-# Readme
+## Readme
 
 TileOven is a modern map design studio powered by [Node.js](http://nodejs.org) and [Mapnik](http://mapnik.org).
 
-Installation instructions, development docs and other information are available on the [TileMill website](https://mapbox.com/tilemill).
+Installation instructions, development docs and other information are available on the [TileMill website](http://tilemill-project.github.io/tilemill).
 
-# Build Status
-
-[![Build status](https://travis-ci.org/florianf/tileoven.svg)](https://travis-ci.org/florianf/tileoven)
-[![Dependencies](https://david-dm.org/florianf/tileoven.svg)](https://david-dm.org/florianf/tileoven)
-
-### Key modules
-
-- mapnik - [![Build Status](https://secure.travis-ci.org/mapnik/mapnik.png?branch=2.3.x)](https://travis-ci.org/mapnik/mapnik)
-- node-mapnik - [![Build Status](https://secure.travis-ci.org/mapnik/node-mapnik.png)](https://travis-ci.org/mapnik/node-mapnik)
-- carto - [![Build Status](https://secure.travis-ci.org/mapbox/carto.png)](http://travis-ci.org/mapbox/carto)
-- tilelive - [![Build Status](https://secure.travis-ci.org/mapbox/tilelive.png)](https://travis-ci.org/mapbox/tilelive)
-- tilelive-mapnik - [![Build Status](https://secure.travis-ci.org/mapbox/tilelive-mapnik.png)](https://travis-ci.org/mapbox/tilelive-mapnik)
-- millstone - [![Build Status](https://secure.travis-ci.org/mapbox/millstone.png)](http://travis-ci.org/mapbox/millstone)
-- node-mbtiles - [![Build Status](https://secure.travis-ci.org/mapbox/node-mbtiles.png)](http://travis-ci.org/mapbox/node-mbtiles)
-- node-sqlite3 - [![Build Status](https://secure.travis-ci.org/mapbox/node-sqlite3.png)](http://travis-ci.org/mapbox/node-sqlite3)
-
-# Depends
+## Depends
 
 - Mapnik v2.3.0
 - Node.js v6.x, v4.x, v0.10.x or v0.8.x
@@ -65,7 +84,7 @@ Installation instructions, development docs and other information are available 
 
 However, node-mapnik (which depends on Mapnik and protobuf) is now packaged as a binary. So, you do not need an external Mapnik. See [Installation](#installation)
 
-# Installation
+## Installation
 
 Note: on Ubuntu make sure that you have the nodejs-legacy package installed!
 
@@ -84,7 +103,7 @@ For more extended details follow:
 - [Install packages](http://mapbox.com/tilemill/docs/install/)
 - [Build from source](http://mapbox.com/tilemill/docs/source/)
 
-# Running tests
+## Running tests
 
 Install mocha and run the tests
 
@@ -113,7 +132,7 @@ If you experience failing tests here are two tips:
 For more info see: http://postgis.net/docs/manual-1.5/ch02.html
 
 
-# Documentation
+## Documentation
 
 TileMill documentation is kept in the mb-pages branch, which is independently managed and not merged with master.
 
@@ -137,7 +156,7 @@ Once Jekyll has started you should be able to view the docs in a browser at:
     http://localhost:4000/tilemill/
 
 
-# Syncing manual
+## Syncing manual
 
 To sync the manual with mb-pages updates do:
 
