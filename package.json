@@ -1,5 +1,5 @@
 {
-    "name": "tileoven",
+    "name": "tilemill",
     "version": "0.10.3",
     "main": "./index.js",
     "description": "A modern map design studio.",
@@ -40,7 +40,7 @@
         "rimraf": "^2.5.2",
         "step": "~0.0.5",
         "mbtiles": "~0.8.2",
-        "mapnik": "3.7.0",
+        "mapnik": "file:../node-mapnik",
         "tilelive-mapnik": "~0.6.16 ",
         "tilelive": "git://github.com/andydekiert/tilelive.git",
         "carto": "0.18.2",
