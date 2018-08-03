@@ -1,6 +1,6 @@
 # General Info
 
-TileOven is a fork of TileMill, with fixed dependencies (`npm-shrinkwrap.json`) to ensure it is still buildable in the future. Also this fork is tested and build on CentOS 7.5 with NodeJS 6.9.1 and Mapnik 2.2.0.
+TileOven is a fork of TileMill, with fixed dependencies (`npm-shrinkwrap.json`) to ensure it is still buildable in the future. Also this fork is tested and build on CentOS 7.5 with NodeJS 6.9.1 and Mapnik 3.0.20.
 
 I did not find any fork of the original TileMill with fixed depencencies, hence these were all not buildable without some heavy tweaking (as time passed new versions of dependencies were released which did not work together anymore...). Hopefully this fork will do better over time.
 
@@ -15,19 +15,26 @@ Once above dependencies are built and installed:
    yum install protobuf-devel protobuf-compile
    ```
    
-2. Clone this repository to a location of your liking, e.g. `/usr/local/src`.
+2. Make sure TileOven will find Mapnik when building: Edit `/etc/ld.so.conf` and add a new line: `/usr/local/lib`. To reload the shared library paths, run as root:
+   ```bash
+   ldconfig
+   ldconfig -p
+   ```
+   Review the output and search for `libmapnik.so.3.0` which should be found in `/usr/local/lib`.
+   
+3. Clone this repository to a location of your liking, e.g. `/usr/local/src`.
    ```bash
    cd /usr/local/src
    git clone https://github.com/andydekiert/tileoven
    ```
    
-3. Build and install TileOven - let `npm-shrinkwrap.json` do it's magic:
+4. Build and install TileOven - let `npm-shrinkwrap.json` do it's magic:
    ```bash
    cd tileoven
-   npm install
+   npm install --build-from-source
    ```
    
-4. Launch TileOven:
+5. Launch TileOven:
    ```
    ./index.js
    ```
