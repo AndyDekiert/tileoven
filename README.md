@@ -12,7 +12,7 @@ To build and install TileOven you will first need to build and install it's depe
 Once above dependencies are built and installed:
 1. Install further TileOven build dependencies:
    ```bash
-   yum install protobuf-devel protobuf-compile
+   yum install protobuf-devel
    ```
    
 2. Make sure TileOven will find Mapnik when building: Edit `/etc/ld.so.conf` and add a new line: `/usr/local/lib`. To reload the shared library paths, run as root:
@@ -28,13 +28,20 @@ Once above dependencies are built and installed:
    git clone https://github.com/andydekiert/tileoven
    ```
    
-4. Build and install TileOven - let `npm-shrinkwrap.json` do it's magic:
+4. Enable more up-to-date gcc-Compiler:
+   ```bash
+   scl enable devtoolset-7 bash
+   gcc --version
+   ```
+   GCC version should be >= 7.3.1 now. Although ode-mapnik only needs gcc > 5. To later disable `devtoolset-7` and return to the default gcc version of CentOS, simply `exit` the current terminal session.
+   
+5. Build and install TileOven - let `npm-shrinkwrap.json` do it's magic:
    ```bash
    cd tileoven
    npm install --build-from-source
    ```
    
-5. Launch TileOven:
+6. Launch TileOven:
    ```
    ./index.js
    ```
